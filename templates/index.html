@@ -11,70 +11,47 @@
             from {
                 transform: rotate(0deg);
             }
-            to { 
+            to {
                 transform: rotate(360deg);
             }
         }
-         
-        
-         @-webkit-keyframes rotate {
-            from {
-                -webkit-transform: rotate(0deg);
-            }
-            to { 
-                -webkit-transform: rotate(360deg);
-            }
-        }
-        
+
         .load {
-            width: 100px;
-            height: 100px;
-            margin: 110px auto 0;
-            border:solid 10px #8822aa;
+            width: 80px;
+            height: 80px;
+            margin: 60px auto;
+            border: solid 8px #6366f1;
             border-radius: 50%;
             border-right-color: transparent;
             border-bottom-color: transparent;
-             -webkit-transition: all 0.5s ease-in;
-            -webkit-animation-name:             rotate; 
-            -webkit-animation-duration:         1.0s; 
-            -webkit-animation-iteration-count:  infinite;
-            -webkit-animation-timing-function: linear;
-                
-                 transition: all 0.5s ease-in;
-            animation-name:             rotate; 
-            animation-duration:         1.0s; 
-            animation-iteration-count:  infinite;
-            animation-timing-function: linear; 
+            animation: rotate 1s linear infinite;
         }
     </style>
 </head>
-<body class="flex flex-col min-h-scrren bg-gray-100 font-sans antialised">
+<body class="flex flex-col min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 font-sans antialiased">
+
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
+    <nav class="bg-indigo-700 bg-opacity-80 backdrop-blur-md p-4 text-white shadow-lg flex justify-between">
         <div>
-            <h1 class="text-3xl font-bold">AI Blog Generator</h1>
+            <h1 class="text-3xl font-bold tracking-tight">Famouzcoder BlogAI</h1>
         </div>
-        <div>
-            <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
-            <a href="/blog-list" class="text-white hover:underline mx-4">Saved Blog Posts</a>
-            <a href="#" class="text-white hover:underline">Logout</a>
+        <div class="space-x-4">
+            <a href="#" class="text-white hover:underline font-medium">Welcome {{ user.username }}</a>
+            <a href="/blog-list" class="text-white hover:underline font-medium">Saved Blog Posts</a>
+            <a href="#" class="text-white hover:underline font-medium">Logout</a>
         </div>
     </nav>
 
-
-    <br>
-    <br>
-
     <!-- Main -->
     <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
-        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex flex-col">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg transition-transform transform hover:scale-105">
 
             <!-- Introduction section -->
             <div class="text-center">
-                <h2 class="text-2xl font-semibold mb-4">Welcome to the AI Blog Generator</h2>
+                <h2 class="text-2xl font-semibold mb-4 text-indigo-700">Welcome to the AI Blog Generator</h2>
                 <p class="text-gray-700">
                     Generate high-quality blog articles from YouTube videos using artificial intelligence.
-                    Simply enter the link to the YouTube video below and let the AI create the content for you!
+                    Simply enter the link to the YouTube video below, and let the AI create the content for you!
                 </p>
             </div>
 
@@ -82,47 +59,39 @@
 
             <!-- Youtube section -->
             <div>
-                <h2 class="text-xl mb-4 font-semibold">Enter Youtube Video Link</h2>
+                <h2 class="text-xl font-semibold mb-4 text-indigo-700">Enter YouTube Video Link</h2>
                 <div class="flex space-x-4">
-                    <input id="youtubeLink" type="url" placeholder="Paste Youtube Link..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
-                    <button id="generateBlogButton" class="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
+                    <input id="youtubeLink" type="url" placeholder="Paste YouTube Link..." class="flex-grow p-2 border border-indigo-400 rounded-l-lg focus:ring-2 focus:ring-indigo-600">
+                    <button id="generateBlogButton" class="bg-indigo-600 text-white px-4 py-2 rounded-r-lg hover:bg-indigo-700 transition duration-300 ease-in-out">Generate</button>
                 </div>
             </div>
-
 
             <!-- section for loading circle -->
             <div style="display: none;" id="loading-circle" class="load"></div>
 
-
             <!-- Generated Blog Display Section -->
-            <section class="mt-10 flex-grow">
-                <h2 class="text-xl mb-4 font-semibold">Generated Blog Article</h2>
-                <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
-                    
-                </div>
+            <section class="mt-10">
+                <h2 class="text-xl mb-4 font-semibold text-indigo-700">Generated Blog Article</h2>
+                <div id="blogContent" class="mt-2 text-gray-700 space-y-4"></div>
             </section>
         </div>
     </div>
 
-
-    <footer class="text-center p-4 text-blacl mt-6">
-        Powered by <a href="https://www.youtube.com/codewithtomi">Code With Tomi</a>
+    <footer class="text-center p-4 text-white mt-10 bg-indigo-700 bg-opacity-80">
+        Powered by <a href="https://www.youtube.com/codewithtomi" class="underline hover:text-indigo-200">Code With Tomi</a>
     </footer>
 
     <script>
         document.getElementById('generateBlogButton').addEventListener('click', async () => {
-            
-
             const youtubeLink = document.getElementById('youtubeLink').value;
             const blogContent = document.getElementById('blogContent');
-            
-            if(youtubeLink) {
+
+            if (youtubeLink) {
                 document.getElementById('loading-circle').style.display = 'block';
-                
                 blogContent.innerHTML = ''; // Clear previous content
 
                 const endpointUrl = '/generate-blog';
-                
+
                 try {
                     const response = await fetch(endpointUrl, {
                         method: 'POST',
@@ -133,14 +102,13 @@
                     });
 
                     const data = await response.json();
-
                     blogContent.innerHTML = data.content;
 
                 } catch (error) {
                     console.error("Error occurred:", error);
                     alert("Something went wrong. Please try again later.");
-                    
                 }
+
                 document.getElementById('loading-circle').style.display = 'none';
             } else {
                 alert("Please enter a YouTube link.");

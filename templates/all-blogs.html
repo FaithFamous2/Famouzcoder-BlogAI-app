@@ -1,53 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Blog Posts</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="bg-gray-100 font-sans antialiased">
-
+  <body
+    class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen font-sans antialiased"
+  >
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
-        <div>
-            <h1 class="text-3xl font-bold">AI Blog Generator</h1>
-        </div>
-        <div>
-            <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
-            <a href="/blog-list" class="text-white hover:underline mx-4">Saved Blog Posts</a>
-            <a href="#" class="text-white hover:underline">Logout</a>
-        </div>
+    <nav
+      class="bg-indigo-700 bg-opacity-80 backdrop-blur-md p-4 text-white shadow-lg flex justify-between"
+    >
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight">Famouzcoder BlogAI</h1>
+      </div>
+      <div class="space-x-4">
+        <a href="#" class="text-white hover:underline font-medium"
+          >Welcome {{ user.username }}</a
+        >
+        <a href="/blog-list" class="text-white hover:underline font-medium"
+          >Saved Blog Posts</a
+        >
+        <a href="#" class="text-white hover:underline font-medium">Logout</a>
+      </div>
     </nav>
 
     <!-- Main Content Container -->
     <div class="container mx-auto mt-10 px-4 sm:px-0">
-        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-
-            <!-- Blog posts section -->
-            <section>
-                <h2 class="text-xl mb-4 font-semibold">All Blog Posts</h2>
-                <div class="space-y-4">
-
-                    {% for article in blog_articles reversed %}
-                    <a href="blog-details/{{article.id}}">
-                        <div class="border border-gray-300 p-4 rounded-lg">
-                            <h3 class="text-lg font-semibold">{{article.youtube_title}}</h3>
-                            <p>{{article.generated_content|truncatechars:80}}</p>
-                        </div>
-                    </a>
-                    {% endfor %}
-
-                    <!-- Repeat -->
-                </div>
-            </section>
-
-        </div>
+      <div
+        class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg transition-transform transform hover:scale-105"
+      >
+        <!-- Blog posts section -->
+        <section>
+          <h2 class="text-2xl mb-6 font-semibold text-indigo-700">
+            All Blog Posts
+          </h2>
+          <div class="space-y-6">
+            {% for article in blog_articles reversed %}
+            <a
+              href="blog-details/{{article.id}}"
+              class="block hover:shadow-lg transition-shadow duration-300 ease-in-out"
+            >
+              <div
+                class="border border-gray-300 p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+              >
+                <h3 class="text-lg font-semibold text-indigo-600">
+                  {{article.youtube_title}}
+                </h3>
+                <p class="text-gray-600">
+                  {{article.generated_content|truncatechars:80}}
+                </p>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
     </div>
 
-    <footer class="text-center p-4 text-blacl mt-6">
-        Powered by <a href="https://www.famouzcoder.com">Famouzcoder</a>
+    <footer
+      class="text-center p-4 text-white mt-10 bg-indigo-700 bg-opacity-80"
+    >
+      Powered by
+      <a
+        href="https://www.famouzcoder.com"
+        class="underline hover:text-indigo-300"
+        >Famouzcoder</a
+      >
     </footer>
-</body>
+  </body>
 </html>
